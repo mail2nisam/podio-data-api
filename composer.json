@@ -1,16 +1,18 @@
 {
-    "name": "phases/podio-data-api",
-    "description": "This package will serve as a json data provider for connected podio apps.",
-    "authors": [
-        {
-            "name": "Nisam",
-            "email": "mail2nisam@gmail.com"
-        }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "~4.0"
-    },
-    "psr-4": {
-        "Phases\\PodioDataApi\\" : "src/"
+  "name": "phases/podio-data-api",
+  "description": "This package will serve as a json data provider for connected podio apps.",
+  "authors": [
+    {
+      "name": "Nisam",
+      "email": "mail2nisam@gmail.com"
     }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phases\\PodioDataApi\\": "src/"
+    }
+  }
 }
