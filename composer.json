@@ -8,10 +8,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "laravel/framework": "~5.2",
-        "podio/podio-php": "^4.3"
-    },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
