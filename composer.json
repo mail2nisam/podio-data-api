@@ -7,7 +7,6 @@
             "email": "mail2nisam@gmail.com"
         }
     ],
-    "minimum-stability": "dev-master",
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
