@@ -2,12 +2,8 @@
 
 namespace Phases\PodioDataApi;
 
-use App\App;
-use App\AppField;
-use App\AppFieldValue;
-use App\AppItem;
+
 use App\Http\Controllers\Controller;
-use App\PodioApiCredential;
 use App\User;
 use Illuminate\Http\Request;
 use Config;
@@ -16,6 +12,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Facades\Image;
+use Phases\PodioDataApi\Models\App;
+use Phases\PodioDataApi\Models\AppField;
+use Phases\PodioDataApi\Models\AppFieldValue;
+use Phases\PodioDataApi\Models\AppItem;
+use Phases\PodioDataApi\Models\PodioApiCredential;
 
 class PodioController extends Controller
 {
@@ -142,6 +143,7 @@ class PodioController extends Controller
      */
     private function getPodioAppData($appId)
     {
+
         $offset = 0;
         do {
             try {
@@ -205,8 +207,25 @@ class PodioController extends Controller
     private function storeFieldValues($field, $app_item_id)
     {
         switch ($field->type) {
+            case "contact":
+                $profiles = $field->values;
+                $profileValues = [];
+                foreach ($profiles as $profile)
+                {
+                    $profileValues[] = [
+                        'profile_id'=>$profile->profile_id,
+                        'user_id'=>$profile->user_id,
+                        'name'=>$profile->name,
+                        'mail'=>$profile->mail,
+                        'image'=>($profile->image)? $profile->image->link:null,
+                    ];
+                }
+                $value = serialize($profileValues);
+                break;
             case "text":
             case "number":
+            case "progress":
+            case "duration":
                 $value = $field->values;
                 break;
             case "category":
@@ -216,7 +235,30 @@ class PodioController extends Controller
                 $value = $field->values[0]->item_id;
                 break;
             case "date":
-
+                $dateValues = $field->values;
+                $value = serialize([
+                    'start'=>$dateValues['start']->format('Y-m-d H:i:s'),
+                    'end'=>($dateValues['end']) ? $dateValues['end']->format('Y-m-d H:i:s'): null
+                ]);
+                break;
+            case 'embed':
+                $embeddedValues = [];
+                foreach ($field->values as $fieldValue)
+                {
+                    $embeddedValues[] = [
+                        'embed_id'=>$fieldValue->embed_id,
+                        'original_url'=>$fieldValue->original_url,
+                        'type'=>$fieldValue->type,
+                        'title'=>$fieldValue->title,
+                    ];
+                }
+                $value = serialize($embeddedValues);
+                break;
+            case 'email':
+            case 'phone':
+            case 'money':
+            case 'location':
+                $value = serialize($field->values);
                 break;
             case "image":
                 $images = $field->values;
@@ -549,7 +591,7 @@ class PodioController extends Controller
      */
     public function syncPodioAuthCredentials()
     {
-        $authCredentials = Config::get('podio.auth_credentials');
+        $authCredentials = Confi::get('podio.auth_credentials');
         foreach ($authCredentials as $clientId => $clientSecret)
         {
             \Podio::setup($clientId,$clientSecret);

@@ -24,6 +24,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 Route::group(['prefix' => 'sync', 'middleware' => 'auth:api'], function () {
     Route::get('/apps', 'Phases\PodioDataApi\PodioController@syncPodioApps')->name('sync_apps');
     Route::get('/podio/api/credentials', 'Phases\PodioDataApi\PodioController@syncPodioAuthCredentials')->name('sync_podio_api_credentials');
-    Route::get('/sync/hooks','Phases\PodioDataApi\PodioController@syncPodioHooks')->name('sync_hooks');
-    Route::get('/sync/app/data', 'Phases\PodioDataApi\PodioController@syncAppData')->name('sync_app_data');
+    Route::get('/hooks','Phases\PodioDataApi\PodioController@syncPodioHooks')->name('sync_hooks');
+    Route::get('/app/data', 'Phases\PodioDataApi\PodioController@syncAppData')->name('sync_app_data');
 });

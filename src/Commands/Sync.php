@@ -37,11 +37,10 @@ class Sync extends Command
      */
     public function handle()
     {
-
         $podioController = new PodioController();
         $this->comment("Creating/Updating User account");
-        $newUser = $podioController->createUserAccount();
-        $this->comment("Your api_token for {$newUser->email} is : {$newUser->api_token}");
+//        $newUser = $podioController->createUserAccount();
+//        $this->comment("Your api_token for {$newUser->email} is : {$newUser->api_token}");
         $this->comment("Syncing Podio app structure");
         $podioController->syncPodioApps();
         $this->info("Podio structure is ready");
@@ -49,7 +48,7 @@ class Sync extends Command
         $podioController->syncAppData();
         $this->info("Syncing data completed");
         $this->info("Adding app hooks to Podio apps");
-        $podioController->syncPodioHooks();
+//        $podioController->syncPodioHooks();
         $this->info("Syncing completed");
 
     }
