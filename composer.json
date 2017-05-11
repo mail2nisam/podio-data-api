@@ -1,7 +1,7 @@
 {
   "name": "phases/podio-data-api",
   "description": "This package will serve as a json data provider for connected podio apps.",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "authors": [
     {
       "name": "Nisam",
