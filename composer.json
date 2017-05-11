@@ -12,8 +12,7 @@
   "minimum-stability": "dev",
 
   "require": {
-    "illuminate/routing": "^5.2",
-    "illuminate/support": "~5",
+    "laravel/framework":"^5.2",
     "intervention/image": "^2.3",
     "podio/podio-php": "^4.3"
   },
