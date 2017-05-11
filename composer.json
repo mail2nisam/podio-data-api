@@ -7,6 +7,10 @@
       "email": "mail2nisam@gmail.com"
     }
   ],
+  "require":{
+    "laravel/framework":"^5.2",
+    "intervention/image": "^2.3"
+  },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
   },
