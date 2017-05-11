@@ -8,9 +8,6 @@
       "email": "mail2nisam@gmail.com"
     }
   ],
-
-  "minimum-stability": "dev",
-
   "require": {
     "laravel/framework":"^5.2",
     "intervention/image": "^2.3",
